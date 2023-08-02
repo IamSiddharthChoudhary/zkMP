@@ -1,0 +1,30 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: zkMP
+    network: sepolia
+    source:
+      address: "0x35134200915f722b8A86E3BDE17469F31c525b50"
+      abi: zkMP
+      startBlock: 4005618
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - ItemBought
+        - ItemCanceled
+        - ItemListed
+      abis:
+        - name: zkMP
+          file: ./abis/zkMP.json
+      eventHandlers:
+        - event: ItemBought(indexed string,indexed address,indexed uint256,uint256)
+          handler: handleItemBought
+        - event: ItemCanceled(indexed string,indexed address,indexed uint256)
+          handler: handleItemCanceled
+        - event: ItemListed(indexed string,indexed address,indexed uint256,uint256)
+          handler: handleItemListed
+      file: ./src/zk-mp.ts
