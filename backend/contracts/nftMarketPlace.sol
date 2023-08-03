@@ -2,6 +2,7 @@
 pragma solidity ^0.8.7;
 
 import "./IzkNFT.sol";
+import "./InftMarketPlace.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 error PriceNotMet(address nftAddress, uint256 tokenId, uint256 price);
@@ -13,7 +14,7 @@ error NotOwner();
 error NotApprovedForMarketplace();
 error PriceMustBeAboveZero();
 
-contract NftMarketplace is ReentrancyGuard{
+contract NftMarketplace is ReentrancyGuard, INftMarketPlace{
     struct Listing {
         uint256 price;
         uint256 seller;
@@ -138,7 +139,7 @@ contract NftMarketplace is ReentrancyGuard{
         emit ItemListed(com, nftAddress, tokenId, newPrice);
     }
 
-    function withdrawProceeds(uint256 com) external {
+    function withdrawProceeds(uint256 com) override external {
         uint256 proceeds = s_proceeds[com];
         if (proceeds <= 0) {
             revert NoProceeds();
