@@ -5,7 +5,7 @@ interface IZkNFT {
     
     function approve(uint256 _tokenID, address op) external;
     function getApprovedAdd(uint256 _tokenID) external view returns(address);    
-    function ownerOf(uint256 _tokenID) external view returns (string memory);
-    function transferNFT(uint256 _tokenID, string memory nullifierHash, address buyer) external;
-    function transferFrom(string memory ownerNul, string memory buyerNul, address buyer, uint256 _tokenID) external;
+    function ownerOf(uint256 _tokenID) external view returns (uint256);
+    function transferNFT(uint256 _tokenID, uint256 nullifierHash, address buyer) external;
+    function transferFrom(uint256 ownerNul, uint256 buyerNul, address buyer, uint256 _tokenID) external;
 }

@@ -5,13 +5,13 @@ import "./IzkNFT.sol";
 
 contract zkNFT is IZkNFT{
 
-    event NFTTransfered(string indexed from ,string indexed to ,uint256 indexed tokenID);
+    event NFTTransfered(uint256 indexed from ,uint256 indexed to ,uint256 indexed tokenID);
     event MetadataUpdate(uint256 indexed tokenID);
 
-    mapping(address => mapping (uint256=> string)) private addToNullHsh;
-    mapping(string => address) private nullToAdd;
-    mapping(address => uint256) private noOfNullHshs; 
-    mapping(uint256 => string) private owners;
+    mapping(address => mapping (uint256=> uint256)) private addToCom;
+    mapping(uint256 => address) private comToAdd;
+    mapping(address => uint256) private noOfComs; 
+    mapping(uint256 => uint256) private owners;
     mapping(uint256 => string) private tokenURIs;
     mapping (uint256 => address) tokenIDToAdd;
 
@@ -23,19 +23,19 @@ contract zkNFT is IZkNFT{
         tokenID = 0;
     }
 
-    function createNFT(string memory nullifierHash, string memory tokenURI) public {
+    function createNFT(uint256 commitment, string memory tokenURI) public {
         address creator = msg.sender;
 
-        setAddAndNull(creator,nullifierHash);
-        mintNFT(nullifierHash,tokenURI);
+        setAddAndCom(creator,commitment);
+        mintNFT(commitment,tokenURI);
         tokenID++;
     }
 
-    function mintNFT(string memory nullifierHash,string memory _tokenURI) internal {
-        owners[tokenID] = nullifierHash;
+    function mintNFT(uint256 commitment,string memory _tokenURI) internal {
+        owners[tokenID] = commitment;
         setTokenURI(tokenID,_tokenURI);
 
-        emit NFTTransfered("", nullifierHash, tokenID);
+        emit NFTTransfered(0, commitment, tokenID);
     }
 
     function setTokenURI(uint256 tokenId, string memory _tokenURI) internal {
@@ -44,48 +44,47 @@ contract zkNFT is IZkNFT{
         emit MetadataUpdate(tokenId);
     }
 
-    function transferFrom(string memory ownerNul, string memory buyerNul, address buyer, uint256 _tokenID) public override{
+    function transferFrom(uint256 ownerCom, uint256 buyerCom, address buyer, uint256 _tokenID) public override{
 
         require(getApprovedAdd(_tokenID) == msg.sender, "No approved to make this call");
-        require(keccak256(abi.encodePacked(ownerOf(_tokenID))) == keccak256(abi.encodePacked(ownerNul)), "Invalid nullifier hash");
+        require(keccak256(abi.encodePacked(ownerOf(_tokenID))) == keccak256(abi.encodePacked(ownerCom)), "Invalid comifier hash");
 
-        transferNFT(_tokenID, buyerNul, buyer);
+        transferNFT(_tokenID, buyerCom, buyer);
     }
 
-    function transferNFT(uint256 _tokenID, string memory nullifierHash, address buyer) public override{
+    function transferNFT(uint256 _tokenID, uint256 commitment, address buyer) public override{
         // owner losing nft
-        string memory crtrNullHsh = owners[_tokenID];
-        address owner = nullToAdd[crtrNullHsh]; 
+        uint256 crtrCom = owners[_tokenID];
+        address owner = comToAdd[crtrCom]; 
         delete owners[_tokenID];
-        uint256 n = noOfNullHshs[owner] - 1;
-        delete addToNullHsh[owner][n];
-        noOfNullHshs[owner] -= 1 ;
+        uint256 n = noOfComs[owner] - 1;
+        delete addToCom[owner][n];
+        noOfComs[owner] -= 1 ;
 
         // Buyer getting nft
-        setAddAndNull(buyer,nullifierHash);
-        owners[_tokenID] = nullifierHash; 
+        setAddAndCom(buyer,commitment);
+        owners[_tokenID] = commitment; 
     }   
 
-    function ownerOf(uint256 _tokenID) public override view returns (string memory){
+    function ownerOf(uint256 _tokenID) public override view returns (uint256){
         return owners[_tokenID];
     }
 
     function exists(uint256 _tokenID) internal view returns (bool) {
-        bytes memory strBytes = bytes(owners[_tokenID]);
-        return strBytes.length == 0;
+       return !(owners[_tokenID] == 0);
     }
 
-    function setAddAndNull(address add, string memory nul) internal{
-        nullToAdd[nul] = add;
-        uint256 n = noOfNullHshs[add];
-        addToNullHsh[add][n] = nul;
-        noOfNullHshs[add] += 1;
+    function setAddAndCom(address add, uint256 com) internal{
+        comToAdd[com] = add;
+        uint256 n = noOfComs[add];
+        addToCom[add][n] = com;
+        noOfComs[add] += 1;
     }
 
 
     function approve(uint256 _tokenID, address op) public override{
-        string memory ownerNull = owners[_tokenID];
-        address owner = nullToAdd[ownerNull];
+        uint256 ownerCom = owners[_tokenID];
+        address owner = comToAdd[ownerCom];
 
         require(op != owner,"Invalid operator address");
         tokenIDToAdd[_tokenID] = op;

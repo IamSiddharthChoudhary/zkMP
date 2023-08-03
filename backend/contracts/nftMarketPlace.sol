@@ -16,31 +16,31 @@ error PriceMustBeAboveZero();
 contract NftMarketplace is ReentrancyGuard{
     struct Listing {
         uint256 price;
-        string seller;
+        uint256 seller;
     }
 
     event ItemListed(
-        string indexed seller,
+        uint256 seller,
         address indexed nftAddress,
         uint256 indexed tokenId,
         uint256 price
     );
 
     event ItemCanceled(
-        string indexed seller,
+        uint256 seller,
         address indexed nftAddress,
         uint256 indexed tokenId
     );
 
     event ItemBought(
-        string indexed buyer,
+        uint256 buyer,
         address indexed nftAddress,
         uint256 indexed tokenId,
         uint256 price
     );
 
     mapping(address => mapping(uint256 => Listing)) private s_listings;
-    mapping(string => uint256) private s_proceeds;
+    mapping(uint256 => uint256) private s_proceeds;
 
     modifier notListed(
         address nftAddress,
@@ -64,11 +64,11 @@ contract NftMarketplace is ReentrancyGuard{
     modifier isOwner(
         address nftAddress,
         uint256 tokenId,
-        string memory spenderNul
+        uint256 spenderCom
     ) {
         IZkNFT nft = IZkNFT(nftAddress);
-        string memory ownerNul = nft.ownerOf(tokenId);
-        if (keccak256(abi.encodePacked(spenderNul)) != keccak256(abi.encodePacked(ownerNul))) {
+        uint256 ownerCom = nft.ownerOf(tokenId);
+        if (spenderCom==ownerCom) {
             revert NotOwner();
         } 
         _;
@@ -78,11 +78,11 @@ contract NftMarketplace is ReentrancyGuard{
         address nftAddress,
         uint256 tokenId,
         uint256 price,
-        string memory nul
+        uint256 com
     )
         external
         notListed(nftAddress, tokenId)
-        isOwner(nftAddress, tokenId, nul)
+        isOwner(nftAddress, tokenId, com)
     {
         if (price <= 0) {
             revert PriceMustBeAboveZero();
@@ -91,20 +91,20 @@ contract NftMarketplace is ReentrancyGuard{
         if (nft.getApprovedAdd(tokenId) != address(this)) {
             revert NotApprovedForMarketplace();
         }
-        s_listings[nftAddress][tokenId] = Listing(price, nul);
-        emit ItemListed(nul, nftAddress, tokenId, price);
+        s_listings[nftAddress][tokenId] = Listing(price, com);
+        emit ItemListed(com, nftAddress, tokenId, price);
     }
 
-    function cancelListing(address nftAddress, uint256 tokenId, string memory nul)
+    function cancelListing(address nftAddress, uint256 tokenId, uint256 com)
         external
-        isOwner(nftAddress, tokenId, nul)
+        isOwner(nftAddress, tokenId, com)
         isListed(nftAddress, tokenId)
     {
         delete (s_listings[nftAddress][tokenId]);
-        emit ItemCanceled(nul, nftAddress, tokenId);
+        emit ItemCanceled(com, nftAddress, tokenId);
     }
 
-    function buyItem(address nftAddress, uint256 tokenId, string memory nul)
+    function buyItem(address nftAddress, uint256 tokenId, uint256 com)
         external
         payable
         isListed(nftAddress, tokenId)
@@ -116,34 +116,34 @@ contract NftMarketplace is ReentrancyGuard{
         }
         s_proceeds[listedItem.seller] += msg.value;
         delete (s_listings[nftAddress][tokenId]);
-        IZkNFT(nftAddress).transferNFT(tokenId,nul,msg.sender);
-        emit ItemBought(nul, nftAddress, tokenId, listedItem.price);
+        IZkNFT(nftAddress).transferNFT(tokenId,com,msg.sender);
+        emit ItemBought(com, nftAddress, tokenId, listedItem.price);
     }
 
     function updateListing(
         address nftAddress,
         uint256 tokenId,
         uint256 newPrice,
-        string memory nul
+        uint256 com
     )
         external
         isListed(nftAddress, tokenId)
         nonReentrant
-        isOwner(nftAddress, tokenId, nul)
+        isOwner(nftAddress, tokenId, com)
     {
         if (newPrice <= 0) {
             revert PriceMustBeAboveZero();
         }
         s_listings[nftAddress][tokenId].price = newPrice;
-        emit ItemListed(nul, nftAddress, tokenId, newPrice);
+        emit ItemListed(com, nftAddress, tokenId, newPrice);
     }
 
-    function withdrawProceeds(string memory nul) external {
-        uint256 proceeds = s_proceeds[nul];
+    function withdrawProceeds(uint256 com) external {
+        uint256 proceeds = s_proceeds[com];
         if (proceeds <= 0) {
             revert NoProceeds();
         }
-        s_proceeds[nul] = 0;
+        s_proceeds[com] = 0;
         (bool success, ) = payable(msg.sender).call{value: proceeds}("");
         require(success, "Transfer failed");
     }
@@ -156,7 +156,7 @@ contract NftMarketplace is ReentrancyGuard{
         return s_listings[nftAddress][tokenId];
     }
 
-    function getProceeds(string memory sellerNul) external view returns (uint256) {
-        return s_proceeds[sellerNul];
+    function getProceeds(uint256 sellerCom) external view returns (uint256) {
+        return s_proceeds[sellerCom];
     }
 }
