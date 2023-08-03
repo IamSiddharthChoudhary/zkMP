@@ -50,30 +50,30 @@ export class ActiveItem extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get buyer(): string {
+  get buyer(): BigInt {
     let value = this.get("buyer");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toString();
+      return value.toBigInt();
     }
   }
 
-  set buyer(value: string) {
-    this.set("buyer", Value.fromString(value));
+  set buyer(value: BigInt) {
+    this.set("buyer", Value.fromBigInt(value));
   }
 
-  get seller(): string {
+  get seller(): BigInt {
     let value = this.get("seller");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toString();
+      return value.toBigInt();
     }
   }
 
-  set seller(value: string) {
-    this.set("seller", Value.fromString(value));
+  set seller(value: BigInt) {
+    this.set("seller", Value.fromBigInt(value));
   }
 
   get nftAddress(): Bytes {
@@ -202,17 +202,17 @@ export class ItemBought extends Entity {
     this.set("id", Value.fromBytes(value));
   }
 
-  get buyer(): string {
+  get buyer(): BigInt {
     let value = this.get("buyer");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toString();
+      return value.toBigInt();
     }
   }
 
-  set buyer(value: string) {
-    this.set("buyer", Value.fromString(value));
+  set buyer(value: BigInt) {
+    this.set("buyer", Value.fromBigInt(value));
   }
 
   get nftAddress(): Bytes {
@@ -337,17 +337,17 @@ export class ItemCanceled extends Entity {
     this.set("id", Value.fromBytes(value));
   }
 
-  get seller(): string {
+  get seller(): BigInt {
     let value = this.get("seller");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toString();
+      return value.toBigInt();
     }
   }
 
-  set seller(value: string) {
-    this.set("seller", Value.fromString(value));
+  set seller(value: BigInt) {
+    this.set("seller", Value.fromBigInt(value));
   }
 
   get nftAddress(): Bytes {
@@ -459,17 +459,17 @@ export class ItemListed extends Entity {
     this.set("id", Value.fromBytes(value));
   }
 
-  get seller(): string {
+  get seller(): BigInt {
     let value = this.get("seller");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toString();
+      return value.toBigInt();
     }
   }
 
-  set seller(value: string) {
-    this.set("seller", Value.fromString(value));
+  set seller(value: BigInt) {
+    this.set("seller", Value.fromBigInt(value));
   }
 
   get nftAddress(): Bytes {

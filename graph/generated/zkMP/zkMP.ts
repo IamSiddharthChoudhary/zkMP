@@ -23,8 +23,8 @@ export class ItemBought__Params {
     this._event = event;
   }
 
-  get buyer(): Bytes {
-    return this._event.parameters[0].value.toBytes();
+  get buyer(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
   }
 
   get nftAddress(): Address {
@@ -53,8 +53,8 @@ export class ItemCanceled__Params {
     this._event = event;
   }
 
-  get seller(): Bytes {
-    return this._event.parameters[0].value.toBytes();
+  get seller(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
   }
 
   get nftAddress(): Address {
@@ -79,8 +79,8 @@ export class ItemListed__Params {
     this._event = event;
   }
 
-  get seller(): Bytes {
-    return this._event.parameters[0].value.toBytes();
+  get seller(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
   }
 
   get nftAddress(): Address {
@@ -101,8 +101,8 @@ export class zkMP__getListingResultValue0Struct extends ethereum.Tuple {
     return this[0].toBigInt();
   }
 
-  get seller(): string {
-    return this[1].toString();
+  get seller(): BigInt {
+    return this[1].toBigInt();
   }
 }
 
@@ -117,7 +117,7 @@ export class zkMP extends ethereum.SmartContract {
   ): zkMP__getListingResultValue0Struct {
     let result = super.call(
       "getListing",
-      "getListing(address,uint256):((uint256,string))",
+      "getListing(address,uint256):((uint256,uint256))",
       [
         ethereum.Value.fromAddress(nftAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId)
@@ -133,7 +133,7 @@ export class zkMP extends ethereum.SmartContract {
   ): ethereum.CallResult<zkMP__getListingResultValue0Struct> {
     let result = super.tryCall(
       "getListing",
-      "getListing(address,uint256):((uint256,string))",
+      "getListing(address,uint256):((uint256,uint256))",
       [
         ethereum.Value.fromAddress(nftAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId)
@@ -148,18 +148,20 @@ export class zkMP extends ethereum.SmartContract {
     );
   }
 
-  getProceeds(sellerNul: string): BigInt {
-    let result = super.call("getProceeds", "getProceeds(string):(uint256)", [
-      ethereum.Value.fromString(sellerNul)
+  getProceeds(sellerCom: BigInt): BigInt {
+    let result = super.call("getProceeds", "getProceeds(uint256):(uint256)", [
+      ethereum.Value.fromUnsignedBigInt(sellerCom)
     ]);
 
     return result[0].toBigInt();
   }
 
-  try_getProceeds(sellerNul: string): ethereum.CallResult<BigInt> {
-    let result = super.tryCall("getProceeds", "getProceeds(string):(uint256)", [
-      ethereum.Value.fromString(sellerNul)
-    ]);
+  try_getProceeds(sellerCom: BigInt): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getProceeds",
+      "getProceeds(uint256):(uint256)",
+      [ethereum.Value.fromUnsignedBigInt(sellerCom)]
+    );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
@@ -193,8 +195,8 @@ export class BuyItemCall__Inputs {
     return this._call.inputValues[1].value.toBigInt();
   }
 
-  get nul(): string {
-    return this._call.inputValues[2].value.toString();
+  get com(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
   }
 }
 
@@ -231,8 +233,8 @@ export class CancelListingCall__Inputs {
     return this._call.inputValues[1].value.toBigInt();
   }
 
-  get nul(): string {
-    return this._call.inputValues[2].value.toString();
+  get com(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
   }
 }
 
@@ -273,8 +275,8 @@ export class ListItemCall__Inputs {
     return this._call.inputValues[2].value.toBigInt();
   }
 
-  get nul(): string {
-    return this._call.inputValues[3].value.toString();
+  get com(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
   }
 }
 
@@ -315,8 +317,8 @@ export class UpdateListingCall__Inputs {
     return this._call.inputValues[2].value.toBigInt();
   }
 
-  get nul(): string {
-    return this._call.inputValues[3].value.toString();
+  get com(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
   }
 }
 
@@ -345,8 +347,8 @@ export class WithdrawProceedsCall__Inputs {
     this._call = call;
   }
 
-  get nul(): string {
-    return this._call.inputValues[0].value.toString();
+  get com(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
   }
 }
 

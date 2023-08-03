@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
-import "./IzkNFT.sol";
-import "./InftMarketPlace.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 error PriceNotMet(address nftAddress, uint256 tokenId, uint256 price);
@@ -13,6 +11,18 @@ error NoProceeds();
 error NotOwner();
 error NotApprovedForMarketplace();
 error PriceMustBeAboveZero();
+
+interface INftMarketPlace {
+    function withdrawProceeds(uint256 com) external;
+}
+interface IZkNFT {
+    
+    function approve(uint256 _tokenID, address op) external;
+    function getApprovedAdd(uint256 _tokenID) external view returns(address);    
+    function ownerOf(uint256 _tokenID) external view returns (uint256);
+    function transferNFT(uint256 _tokenID, uint256 nullifierHash, address buyer) external;
+    function transferFrom(uint256 ownerNul, uint256 buyerNul, address buyer, uint256 _tokenID) external;
+}
 
 contract NftMarketplace is ReentrancyGuard, INftMarketPlace{
     struct Listing {

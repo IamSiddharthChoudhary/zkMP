@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-artifact-1",
-  "contractName": "ICreateNFT",
-  "sourceName": "contracts/IcreateNFT.sol",
+  "contractName": "IZkNFT",
+  "sourceName": "contracts/zkNFT.sol",
   "abi": [
     {
       "inputs": [
@@ -51,9 +51,9 @@
       "name": "ownerOf",
       "outputs": [
         {
-          "internalType": "string",
+          "internalType": "uint256",
           "name": "",
-          "type": "string"
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -62,14 +62,14 @@
     {
       "inputs": [
         {
-          "internalType": "string",
+          "internalType": "uint256",
           "name": "ownerNul",
-          "type": "string"
+          "type": "uint256"
         },
         {
-          "internalType": "string",
+          "internalType": "uint256",
           "name": "buyerNul",
-          "type": "string"
+          "type": "uint256"
         },
         {
           "internalType": "address",
@@ -95,9 +95,9 @@
           "type": "uint256"
         },
         {
-          "internalType": "string",
+          "internalType": "uint256",
           "name": "nullifierHash",
-          "type": "string"
+          "type": "uint256"
         },
         {
           "internalType": "address",

@@ -3,8 +3,14 @@
 pragma solidity ^0.8.7;
 
 import "./MIMCSpoge.sol";
-import "./Iverifier.sol";
-import "./InftMarketPlace.sol";
+
+interface INftMarketPlace {
+    function withdrawProceeds(uint256 com) external;
+}
+
+interface IVerifier {
+    function verifyProof(uint[2] memory a, uint[2][2] memory b, uint[2] memory c, uint[3] memory input) external returns(bool);
+}
 
 contract ZkContract{
 
@@ -32,8 +38,16 @@ contract ZkContract{
 
     mapping(uint256=>bool) public roots;
     mapping(uint8=>uint256) lastLevelHash;
-    mapping(string=>bool) private nullExists;
-    mapping(string=>bool) private comExists;
+    mapping(uint256=>bool) private nullExists;
+    mapping(uint256=>bool) private comExists;
+
+    constructor(
+        address _hasher,
+        address _verifier
+    ){
+        hasher = Hasher(_hasher);
+        verifier = _verifier;
+    }
 
     function minting(uint256 _commitment) external {
         require(!comExists[_commitment],"Duplicate commitment hash.");
@@ -50,13 +64,6 @@ contract ZkContract{
         uint256 right;
         uint256[2] memory ins;
 
-        constructor(
-            address _hasher,
-            address _verifier
-        ){
-            hasher = Hasher(_hasher);
-            verifier = _verifier;
-        }
         
         for(uint8 i = 0; i < treeLevel; i++){
             
@@ -95,7 +102,8 @@ contract ZkContract{
         uint[2][2] memory b,
         uint[2] memory c,
         uint[2] memory input,
-        address nftMPAddress
+        address nftMPAddress,
+        uint256 com
     ) external {
         uint256 _root = input[0];
         uint256 _nullifierHash = input[1];
@@ -110,19 +118,19 @@ contract ZkContract{
         INftMarketPlace(nftMPAddress).withdrawProceeds(com);
     } 
 
-    function null_exists(string memory str) view public returns(bool){
-        return nullExists[str];
+    function null_exists(uint256 i) view public returns(bool){
+        return nullExists[i];
     }
 
-    function registerNull(string memory str) public {
-        nullExists[str] = true;
+    function registerNull(uint256 i) public {
+        nullExists[i] = true;
     }
 
-    function com_exists(string memory str) view public returns(bool){
-        return comExists[str];
+    function com_exists(uint256 i) view public returns(bool){
+        return comExists[i];
     }
 
-    function regiterCom(string memory str) public {
-        comExists[str] = true;
+    function regiterCom(uint256 i) public {
+        comExists[i] = true;
     }
 }
