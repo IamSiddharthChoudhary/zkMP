@@ -6,7 +6,7 @@ import {
   beforeAll,
   afterAll
 } from "matchstick-as/assembly/index"
-import { Address, BigInt } from "@graphprotocol/graph-ts"
+import { BigInt, Address } from "@graphprotocol/graph-ts"
 import { ItemBought } from "../generated/schema"
 import { ItemBought as ItemBoughtEvent } from "../generated/zkMP/zkMP"
 import { handleItemBought } from "../src/zk-mp"
@@ -17,7 +17,7 @@ import { createItemBoughtEvent } from "./zk-mp-utils"
 
 describe("Describe entity assertions", () => {
   beforeAll(() => {
-    let buyer = "Example string value"
+    let buyer = BigInt.fromI32(234)
     let nftAddress = Address.fromString(
       "0x0000000000000000000000000000000000000001"
     )
@@ -47,7 +47,7 @@ describe("Describe entity assertions", () => {
       "ItemBought",
       "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
       "buyer",
-      "Example string value"
+      "234"
     )
     assert.fieldEquals(
       "ItemBought",

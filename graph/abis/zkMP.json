@@ -32,10 +32,10 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": true,
-        "internalType": "string",
+        "indexed": false,
+        "internalType": "uint256",
         "name": "buyer",
-        "type": "string"
+        "type": "uint256"
       },
       {
         "indexed": true,
@@ -63,10 +63,10 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": true,
-        "internalType": "string",
+        "indexed": false,
+        "internalType": "uint256",
         "name": "seller",
-        "type": "string"
+        "type": "uint256"
       },
       {
         "indexed": true,
@@ -88,10 +88,10 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": true,
-        "internalType": "string",
+        "indexed": false,
+        "internalType": "uint256",
         "name": "seller",
-        "type": "string"
+        "type": "uint256"
       },
       {
         "indexed": true,
@@ -119,7 +119,7 @@
     "inputs": [
       { "internalType": "address", "name": "nftAddress", "type": "address" },
       { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
-      { "internalType": "string", "name": "nul", "type": "string" }
+      { "internalType": "uint256", "name": "com", "type": "uint256" }
     ],
     "name": "buyItem",
     "outputs": [],
@@ -130,7 +130,7 @@
     "inputs": [
       { "internalType": "address", "name": "nftAddress", "type": "address" },
       { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
-      { "internalType": "string", "name": "nul", "type": "string" }
+      { "internalType": "uint256", "name": "com", "type": "uint256" }
     ],
     "name": "cancelListing",
     "outputs": [],
@@ -147,7 +147,7 @@
       {
         "components": [
           { "internalType": "uint256", "name": "price", "type": "uint256" },
-          { "internalType": "string", "name": "seller", "type": "string" }
+          { "internalType": "uint256", "name": "seller", "type": "uint256" }
         ],
         "internalType": "struct NftMarketplace.Listing",
         "name": "",
@@ -159,7 +159,7 @@
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "sellerNul", "type": "string" }
+      { "internalType": "uint256", "name": "sellerCom", "type": "uint256" }
     ],
     "name": "getProceeds",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
@@ -171,7 +171,7 @@
       { "internalType": "address", "name": "nftAddress", "type": "address" },
       { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
       { "internalType": "uint256", "name": "price", "type": "uint256" },
-      { "internalType": "string", "name": "nul", "type": "string" }
+      { "internalType": "uint256", "name": "com", "type": "uint256" }
     ],
     "name": "listItem",
     "outputs": [],
@@ -183,7 +183,7 @@
       { "internalType": "address", "name": "nftAddress", "type": "address" },
       { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
       { "internalType": "uint256", "name": "newPrice", "type": "uint256" },
-      { "internalType": "string", "name": "nul", "type": "string" }
+      { "internalType": "uint256", "name": "com", "type": "uint256" }
     ],
     "name": "updateListing",
     "outputs": [],
@@ -191,7 +191,7 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "string", "name": "nul", "type": "string" }],
+    "inputs": [{ "internalType": "uint256", "name": "com", "type": "uint256" }],
     "name": "withdrawProceeds",
     "outputs": [],
     "stateMutability": "nonpayable",

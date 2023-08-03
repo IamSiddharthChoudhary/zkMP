@@ -1,9 +1,9 @@
 import { newMockEvent } from "matchstick-as"
-import { ethereum, Address, BigInt } from "@graphprotocol/graph-ts"
+import { ethereum, BigInt, Address } from "@graphprotocol/graph-ts"
 import { ItemBought, ItemCanceled, ItemListed } from "../generated/zkMP/zkMP"
 
 export function createItemBoughtEvent(
-  buyer: string,
+  buyer: BigInt,
   nftAddress: Address,
   tokenId: BigInt,
   price: BigInt
@@ -13,7 +13,7 @@ export function createItemBoughtEvent(
   itemBoughtEvent.parameters = new Array()
 
   itemBoughtEvent.parameters.push(
-    new ethereum.EventParam("buyer", ethereum.Value.fromString(buyer))
+    new ethereum.EventParam("buyer", ethereum.Value.fromUnsignedBigInt(buyer))
   )
   itemBoughtEvent.parameters.push(
     new ethereum.EventParam(
@@ -35,7 +35,7 @@ export function createItemBoughtEvent(
 }
 
 export function createItemCanceledEvent(
-  seller: string,
+  seller: BigInt,
   nftAddress: Address,
   tokenId: BigInt
 ): ItemCanceled {
@@ -44,7 +44,7 @@ export function createItemCanceledEvent(
   itemCanceledEvent.parameters = new Array()
 
   itemCanceledEvent.parameters.push(
-    new ethereum.EventParam("seller", ethereum.Value.fromString(seller))
+    new ethereum.EventParam("seller", ethereum.Value.fromUnsignedBigInt(seller))
   )
   itemCanceledEvent.parameters.push(
     new ethereum.EventParam(
@@ -63,7 +63,7 @@ export function createItemCanceledEvent(
 }
 
 export function createItemListedEvent(
-  seller: string,
+  seller: BigInt,
   nftAddress: Address,
   tokenId: BigInt,
   price: BigInt
@@ -73,7 +73,7 @@ export function createItemListedEvent(
   itemListedEvent.parameters = new Array()
 
   itemListedEvent.parameters.push(
-    new ethereum.EventParam("seller", ethereum.Value.fromString(seller))
+    new ethereum.EventParam("seller", ethereum.Value.fromUnsignedBigInt(seller))
   )
   itemListedEvent.parameters.push(
     new ethereum.EventParam(

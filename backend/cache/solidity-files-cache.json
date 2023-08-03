@@ -1,54 +1,12 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/home/siddharth/Downloads/Programming/zkMP/backend/contracts/IcreateNFT.sol": {
-      "lastModificationDate": 1690887460985,
-      "contentHash": "16a7e788415f1cb45cdbde76cc8f6822",
-      "sourceName": "contracts/IcreateNFT.sol",
-      "solcConfig": {
-        "version": "0.8.7",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.7"
-      ],
-      "artifacts": [
-        "ICreateNFT"
-      ]
-    },
     "/home/siddharth/Downloads/Programming/zkMP/backend/contracts/nftMarketPlace.sol": {
-      "lastModificationDate": 1690887776287,
-      "contentHash": "46ddfdb25a2396035432ab194216df8d",
+      "lastModificationDate": 1691079338160,
+      "contentHash": "9e5ea537589a7e1fae5a38072cbfbdcf",
       "sourceName": "contracts/nftMarketPlace.sol",
       "solcConfig": {
-        "version": "0.8.7",
+        "version": "0.8.17",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -78,13 +36,14 @@
         }
       },
       "imports": [
-        "./IcreateNFT.sol",
         "@openzeppelin/contracts/security/ReentrancyGuard.sol"
       ],
       "versionPragmas": [
         "^0.8.7"
       ],
       "artifacts": [
+        "INftMarketPlace",
+        "IZkNFT",
         "NftMarketplace"
       ]
     },
@@ -93,7 +52,7 @@
       "contentHash": "1535f8c0c68463f8c1b5239f7584e71f",
       "sourceName": "@openzeppelin/contracts/security/ReentrancyGuard.sol",
       "solcConfig": {
-        "version": "0.8.7",
+        "version": "0.8.17",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -130,12 +89,12 @@
         "ReentrancyGuard"
       ]
     },
-    "/home/siddharth/Downloads/Programming/zkMP/backend/contracts/createNFT.sol": {
-      "lastModificationDate": 1690887459073,
-      "contentHash": "2500f64124023b6044a2087c456aae40",
-      "sourceName": "contracts/createNFT.sol",
+    "/home/siddharth/Downloads/Programming/zkMP/backend/contracts/zkContract.sol": {
+      "lastModificationDate": 1691079317980,
+      "contentHash": "560e59e6c4904944c3d628273120a115",
+      "sourceName": "contracts/zkContract.sol",
       "solcConfig": {
-        "version": "0.8.7",
+        "version": "0.8.17",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -165,13 +124,142 @@
         }
       },
       "imports": [
-        "./IcreateNFT.sol"
+        "./MIMCSpoge.sol"
       ],
       "versionPragmas": [
         "^0.8.7"
       ],
       "artifacts": [
-        "CreateNFT"
+        "INftMarketPlace",
+        "IVerifier",
+        "ZkContract"
+      ]
+    },
+    "/home/siddharth/Downloads/Programming/zkMP/backend/contracts/MIMCSpoge.sol": {
+      "lastModificationDate": 1691067128712,
+      "contentHash": "71c486ea9675c2d7d2d34852118860ff",
+      "sourceName": "contracts/MIMCSpoge.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.8.17"
+      ],
+      "artifacts": [
+        "Hasher"
+      ]
+    },
+    "/home/siddharth/Downloads/Programming/zkMP/backend/contracts/zkNFT.sol": {
+      "lastModificationDate": 1691079248503,
+      "contentHash": "4b7f7e481350e292d122824abcda4456",
+      "sourceName": "contracts/zkNFT.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.7"
+      ],
+      "artifacts": [
+        "IZkNFT",
+        "zkNFT"
+      ]
+    },
+    "/home/siddharth/Downloads/Programming/zkMP/backend/contracts/verifier.sol": {
+      "lastModificationDate": 1691067099333,
+      "contentHash": "4099d69c76ebf4ea433c22e2d21545a7",
+      "sourceName": "contracts/verifier.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.0 <0.9.0"
+      ],
+      "artifacts": [
+        "Groth16Verifier"
       ]
     }
   }
