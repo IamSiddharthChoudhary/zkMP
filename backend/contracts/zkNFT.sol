@@ -8,12 +8,20 @@ contract zkNFT is IZkNFT{
     event NFTTransfered(uint256 indexed from ,uint256 indexed to ,uint256 indexed tokenID);
     event MetadataUpdate(uint256 indexed tokenID);
 
+    struct proof{
+        uint[2] a;
+        uint[2][2] b;
+        uint[2] c;
+        uint[2] input;
+    }
+
     mapping(address => mapping (uint256=> uint256)) private addToCom;
     mapping(uint256 => address) private comToAdd;
     mapping(address => uint256) private noOfComs; 
     mapping(uint256 => uint256) private owners;
     mapping(uint256 => string) private tokenURIs;
     mapping (uint256 => address) tokenIDToAdd;
+    mapping (uint256 => proof) private mapProof;
 
     string _name = "zkMP";
     string _symbol = "Z";
@@ -66,6 +74,14 @@ contract zkNFT is IZkNFT{
         owners[_tokenID] = commitment; 
     }   
 
+    function setProof(uint256 commitment,proof memory pr) public {
+        mapProof[commitment] = pr;
+    }
+
+    function getProof(uint256 commitment) view public returns(proof memory){
+        return mapProof[commitment];
+    }
+
     function ownerOf(uint256 _tokenID) public override view returns (uint256){
         return owners[_tokenID];
     }
@@ -89,7 +105,6 @@ contract zkNFT is IZkNFT{
         require(op != owner,"Invalid operator address");
         tokenIDToAdd[_tokenID] = op;
     }
-
 
     function getApprovedAdd(uint256 _tokenID) public override view returns(address){
         return tokenIDToAdd[_tokenID];
