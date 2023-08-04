@@ -6,7 +6,7 @@ So this a Market Place, but not just a normal market place its a zero knowledge(
 
 A special NFT has been made which does not inheriting ERC721 and functions like mint, trasnfer, transferFrom, etc. are defined with respect to the nullifierhash which deployed and interacted with hardhat framework.
 
-✨Most imortant thing to note is, to withdraw the ammount gained by selling the zkNFT the user must submit his/her proof.
+✨Most imortant thing to note is, to withdraw the amount gained by selling the zkNFT the user must submit his/her proof.
 
 The frontend uses Graph for indexing of the events and rest is just like a normal decentralised application on hardhart framework and using NEXTjs for the frontend.
 
