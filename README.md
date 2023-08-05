@@ -1,5 +1,5 @@
 # Note
-I have named this project "Taciturm"(meaning: reserved or uncommunicative in speech; saying little). frontend is under development (thanks to some errors) but I have attached screenshots of UI at the end of this readme. Rest everything is complete. If you want to understand the project, below is the whole mechanism how this project works.
+I have named this project "Taciturn" (meaning: reserved or uncommunicative in speech; saying little). frontend is under development (thanks to some errors) but I have attached screenshots of UI at the end of this readme. Rest everything is complete. If you want to understand the project, below is the whole mechanism how this project works.
 
 # Description
 So this a Market Place, but not just a normal market place its a zero knowledge(zk-snark) market place, Where nft is not directly mapped to the owner address but rather it's commitment. And we owner dhip using a proof genetrated by groth16 method of finding proof which is implemented using snarkjs. You can see the circom circuits in in circuit folder. 
