@@ -1,8 +1,8 @@
 # Note
-This project's frontend is under development as getting some errors and switching to tailwind and will be completed in 1-2 days(Hopefully). Rest everything is complete. If you want to understand the project, below is the whole mechanism how this project works.
+I have named this project "Taciturm"(meaning: reserved or uncommunicative in speech; saying little). frontend is under development (thanks to some errors) but I have attached screenshots of UI at the end of this readme. Rest everything is complete. If you want to understand the project, below is the whole mechanism how this project works.
 
 # Description
-So this a Market Place, but not just a normal market place its a zero knowledge(zk-snark) market place, Where nft is not directly mapped to the owner address but rather it's nullifier hash. And we can prove the existance of onwer using groth16 method of finding proof which is implemented using snarkjs. You can see the circom circuits in in circuit folder. 
+So this a Market Place, but not just a normal market place its a zero knowledge(zk-snark) market place, Where nft is not directly mapped to the owner address but rather it's commitment. And we owner dhip using a proof genetrated by groth16 method of finding proof which is implemented using snarkjs. You can see the circom circuits in in circuit folder. 
 
 A special NFT has been made which does not inheriting ERC721 and functions like mint, trasnfer, transferFrom, etc. are defined with respect to the nullifierhash which deployed and interacted with hardhat framework.
 
@@ -22,3 +22,13 @@ Circom is tailored for performance, and zk-SNARKs have applications in scenarios
 zk-SNARKs can be composed, meaning that multiple zk-SNARKs can be linked together to prove more complex statements. Circom allows us to design circuits that can be easily composed with other circuits, providing flexibility in building larger, more intricate proofs.
 
 Circom is designed to be interoperable with other components of the zk-SNARK system, such as proving systems like libsnark or bellman, and pairing-based elliptic curve libraries. This ensures a smooth integration of the various components of a zk-SNARK implementation.
+
+## Screenshots of UI
+Landing page:
+![Screenshot from 2023-08-06 01-53-09](https://github.com/IamSiddharthChoudhary/zkMP/assets/96943338/dbb7c0d8-ec13-4b67-86a0-9aa857ed5c29)
+
+Withdrawal page, as mentioned above you have to verify the proof to get eth earned after selling NFT.
+![Screenshot from 2023-08-06 01-55-20](https://github.com/IamSiddharthChoudhary/zkMP/assets/96943338/853393ae-3031-47af-a2ce-639df81726a9)
+
+Create NFT page:
+![Screenshot from 2023-08-06 01-53-54](https://github.com/IamSiddharthChoudhary/zkMP/assets/96943338/06cbab15-a5ee-44be-9170-49acc553bd7f)
