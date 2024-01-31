@@ -1,0 +1,8 @@
+{
+  "sepolia": {
+    "zkMP": {
+      "address": "0x35134200915f722b8A86E3BDE17469F31c525b50",
+      "startBlock": 4005618
+    }
+  }
+}
