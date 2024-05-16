@@ -1,5 +1,5 @@
 # Note
-This project is under development and will be completed in 1-2 days(Hopefully). Just some errors are stopping its completion. But if you want to understand the project, below is the whole mechanism how this project works.
+This project is under development and will be completed in soon(Hopefully). Just some errors are stopping its completion. But if you want to understand the project, below is the whole mechanism how this project works.
 
 # Description
 So this a Market Place, but not just a normal market place its a zero knowledge(zk-snark) market place, Where nft is not directly mapped to the owner address but rather it's nullifier hash. And we can prove the existance of onwer using groth16 method of finding proof which is implemented using snarkjs. You can see the circom circuits in in circuit folder. 
